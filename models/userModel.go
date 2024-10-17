@@ -1,18 +1,22 @@
 package models
 
-import "time"
+import (
+	"time"
+
+	"go.mongodb.org/mongo-driver/bson/primitive"
+)
 
 type User struct {
-	ID            uint      `gorm:"primarykey;autoIncrement"  json:"id" validate:"required"`
-	First_name    *string   `gorm:"size:200;not null" json:"first_name" validate:"required"`
-	Last_name     *string   `gorm:"size:200" json:"last_name" validate:"required"`
-	Password      *string   `gorm:"size:50;not null" json:"-" validate:"required"`
-	Email         *string   `gorm:"size:100;unique;not null" json:"email" validate:"required,email"`
-	Phone         *string   `gorm:"size:15;unique" json:"phone" validate:"required"`
-	Token         *string   `json:"token"`
-	User_type     *string   `gorm:"size:50;default:'user'" json:"user_type"`
-	Refresh_token *string   `json:"refresh_token"`
-	Created_at    time.Time `json:"created_at"`
-	Updated_at    time.Time `json:"updated_at"`
-	User_id       *string   `gorm:"unique;not null" json:"user_id"`
+	ID            primitive.ObjectID `bson:"_id"`
+	First_name    *string            `json:"first_name" validate:"required, min=2, max=100"`
+	Last_name     *string            `json:"last_name" validate:"required, min=2, max=100"`
+	Password      *string            `json:"-" validate:"required, min=6"`
+	Email         *string            `json:"email" validate:"required,email"`
+	Phone         *string            `json:"phone" validate:"required"`
+	Token         *string            `json:"token"`
+	User_type     *string            `json:"user_type" validate:"required, eq=ADMIN|eq=USER"`
+	Refresh_token *string            `json:"refresh_token"`
+	Created_at    time.Time          `json:"created_at"`
+	Updated_at    time.Time          `json:"updated_at"`
+	User_id       *string            `json:"user_id"`
 }

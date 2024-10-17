@@ -12,7 +12,7 @@ func main() {
 	port := os.Getenv("PORT")
 
 	if port == "" {
-		port = "8000" //defau;t to 8000 if not specified
+		port = "8000" //default to 8000 if not specified
 	}
 
 	router := gin.New()      //initalize the gin router
