@@ -8,15 +8,13 @@ import (
 )
 
 func main() {
-	//Retrieve port from environment variable
 	port := os.Getenv("PORT")
-
 	if port == "" {
-		port = "8000" //default to 8000 if not specified
+		port = "8000"
 	}
 
-	router := gin.New()      //initalize the gin router
-	router.Use(gin.Logger()) //logging in middleware
+	router := gin.New()
+	router.Use(gin.Logger())
 
 	routes.AuthRoutes(router)
 	routes.UserRoutes(router)
